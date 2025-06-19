@@ -1,0 +1,15 @@
+{
+    "contact" : {
+        "firstName" : "Niraj",
+        "lastName" : "Maharjan",
+        "dob" : "2002-01-01",
+        "email" : "nriaj@gmail.com",
+        "phone" : "9860558990",
+        "street1" : "Sundhara",
+        "street2" : "Khichapokhari",
+        "city" : "Kathmandu",
+        "state" : "Bagmati",
+        "postal" : "864772",
+        "country" : "Nepal"
+    }
+}
