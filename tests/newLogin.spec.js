@@ -43,6 +43,6 @@ test.describe('Invalid login tests', ()=>{
 
 
 //in newer versions of playwright, this is done automatically
-test.beforeEach(async ({page})=>{
+test.afterEach(async ({page})=>{
     await page.close()
 })

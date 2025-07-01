@@ -11,5 +11,8 @@
         "state" : "Bagmati",
         "postal" : "864772",
         "country" : "Nepal"
+    },
+    "contactEdit" : {
+        "firstName" :"Rameshor"
     }
 }
