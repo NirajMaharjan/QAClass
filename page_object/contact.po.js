@@ -1,4 +1,5 @@
-const {expect} = require("@playwright/test")
+const {expect} = require("@playwright/test");
+const { asyncWrapProviders } = require("async_hooks");
 
 
 // use this in test files
@@ -8,7 +9,7 @@ exports.ContactPage = class ContactPage{
     constructor(page){
         this.page = page;
 
-        this.addContact = '//button[@id="add-contact"]';
+        this.addContactButton = '//button[@id="add-contact"]';
 
         this.firstNameInput ='#firstName';  
         this.lastNameInput ='//input[@id="lastName"]';  
@@ -22,8 +23,8 @@ exports.ContactPage = class ContactPage{
         this.postalCodeInput ='//input[@id="postalCode"]';  
         this.countryInput ='//input[@id="country"]';  
 
-        this.submitButton = '//button[id="submit"]';
-        this.cancelButton = '//button[id="cancel"]'; 
+        this.submitButton = '//button[@id="submit"]';
+        this.cancelButton = '//button[@id="cancel"]'; 
         
         this.alertMessage = '//span[@id="error"]';
 
@@ -40,6 +41,11 @@ exports.ContactPage = class ContactPage{
         this.savedPostalCode ='//span[@id="postalCode"]';  
         this.savedCountry ='//span[@id="country"]';  
 
+
+        this.viewCreatedContact = '//tr[@class="contactTableBodyRow"]';
+        this.editButton = '//button[@id="edit-contact"]';
+        this.deleteContact='//button[@id="delete-contact]';
+
         
 
     }
@@ -49,7 +55,7 @@ exports.ContactPage = class ContactPage{
     async addContact(firstName,lastName,birthDate,email,phone,street1,street2,city,stateProvince,postalCode,country){
 
 
-        await this.page.locator(this.addContact).click();
+        await this.page.locator(this.addContactButton).click();
         
         await this.page.locator(this.firstNameInput).fill(firstName);
         await this.page.locator(this.lastNameInput).fill(lastName);
@@ -63,7 +69,7 @@ exports.ContactPage = class ContactPage{
         await this.page.locator(this.postalCodeInput).fill(postalCode);
         await this.page.locator(this.countryInput).fill(country);
 
-        await this.page.waitForTimeout(3000)
+        // await this.page.waitForTimeout(3000)
       
         await this.page.locator(this.submitButton).click();
 
@@ -98,6 +104,37 @@ exports.ContactPage = class ContactPage{
         await expect(stateProvinceValidation).toHaveText(city);
         
     }
+
+    async viewContact(fname,lname){
+        // await this.page.locator(this.viewCreatedContact).click();
+        const fullName = `${fname} ${lname}`
+        this.page.reload();
+        //wait for the row containing the full name and click it
+        await this.page.locator(`//tr[td[text()='${fullName}']]`).first().click();
+
+    }
+
+    async editContact(firstName){
+        await this.page.locator(this.editContact).click();
+        await this.page.waitForTimeout(2000);
+        await this.page.locator(this.firstNameInput).clear();
+        await this.page.locator(this.firstNameInput).fill(firstName);
+        await this.page.waitForTimeout(2000);
+        await this.page.locator(this.Save).click();
+
+    }
+
+    async contactDelete(){
+        await this.page.waitForTimeout(2000);
+        //ekcjoti expect garya ho dialog auxa ki vanera
+        this.page.once('dialog', async dialog => {
+            console.log(`Dialog message: ${dialog.message()}`);
+            await dialog.accept(); //use dialog.dismiss() if you want to cancel instead
+        });
+        await this.page.locator(this.deleteContact).click()
+    }
+
+    
 
 
 
