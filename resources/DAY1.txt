@@ -1,0 +1,86 @@
+# what should be included in a test plan?
+	- analyze the product 
+	- design the test strategy
+	- define the test objective
+	- plan test environment
+	- resource planning
+	- define test criteria
+	- schedule and estimation
+	- determine test deliverables
+
+
+# Test Case
+set of actions executed to verify a particular feature or functionality of your software app
+it should contain test steps, precondition, post condition, developed for specific test scenario to verify any requirement
+test case id important
+
+
+# RTM (Requirement Traceability Matrix)
+document that maps and traces user requirement with test cases
+It captures all requirements proposed by the client and requirement traceability in a single document, delivered at the conclusion of SDLC.
+
+
+# Test Management
+this method consist of oraganizing and controlling ensuring traceability and visibility of th testing process in order to deliver the high quality software.
+
+## Activities:
+1. Test Organization
+procedure of defining roles in the testing process
+It defines who is responsible for which activities in testing process.
+The compentences an knowledge of the people involved are also defined however everyone is responsible for quality of testing process.TEst function, facilities and activities are also defined in this same stage.
+
+2. Test Estimation (Planning)
+approximates how long a Task would take to complete.
+determination of how long and how much resources are needed. (resources, time, human skill, cost)
+
+3. Test Monitoring and control
+process in which the testing activities and testing efforts are evaluated in order to track current progress of testing activity, finding and and tracking testing metrics, estimating future actions based on test metrics and providing feedback to the concerned team as well as stakeholders about current testing process.
+
+### how to monitor and control test?
+a. create monitoring plan 
+b. update progress records
+c. analyze record and make adjustments
+d. procedure the reports
+
+
+4. Risk Analysis
+Risk is the probability of occurrence of an undesirable event 
+Risk should be identified and corresponding solutions should be determined before the start of the project.
+
+### How to perform risk analysis?
+a. Identify the risk
+b. Analyze the impact of each identified risk
+c. Take Countermeasure for the identified and analyzed risk
+
+5. Defect Management Process  (Bugs)
+a. Discovery of Defect
+b. Defect Categorization
+c. Fixing defect by developers
+d. Verification by testers
+e. Defect Closure
+f. Defect Reports
+
+
+
+
+# Playwright
+accommodate the needs of end to end testing
+
+
+- supports multi tab, multi user and iframe
+- supports different types of testing such as end to end, functional, API testing
+- generate an HTML report view the rsults of the test run in the browser
+- GUI Inerface
+- Attachment for test runs
+- Auto waiting of elements (Eg : if login page needs time to load, we can add explicit wait time ) playwright has auto wait time
+
+CONS:
+Smaller community
+Does not support Microsoft edge or IE11
+Does not automate app (only for web automation)
+
+
+Selenium :  require drivers; scripts lai driver ma check garxa ani balla browser ma invoke garxa
+Cypress : no drivers needed, browsers work as drivers 
+Playwright : script lai playwright ko dependency through direct invoke
+

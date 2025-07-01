@@ -1,0 +1,136 @@
+# Annotations
+- test.beforeAll -> this will run before any test
+- test.beforeEach -> within multiple tests, for the common steps like "navigate to url" -> avoid repeating
+- test.describe -> define any test ; what the test is related to 
+- test -> test cases written under "test" are executed
+- test.skip -> skip any test
+- test.fail -> defining any test that will be failed
+- test.only -> run any one test only
+- test.slow -> slows the test by 1.5 or 3 times
+- test.afterEach -> the part that run after every tests ; like clearing cache
+- test.AfterAll -> the part that is run after all test has been completed; like generating report and sending
+
+# Assertions
+- includes test assertions in the form of expect function
+- to make an assertion, call expect(value) and choose a matcher that reflects the expectation
+
+## Syntax
+	await expect(page.getByTestId('status')).toHaveText("Submitted")
+
+## Other types:
+- Auto-retrying assertions -> gives timeout within which it tests until its passed
+- Non-retrying assertions -> checks for one time ; if it pass then pass otherwise direct fail
+- Negating matchers
+- Soft assertions -> type of assertion in which if the test is failed, it is declared as failed and continues to next test
+- Custom expect message -> we can define error messages
+- expect.configure -> include config parts like timeout 
+- expect.poll -> req/response 
+- expect.toPass -> declaring any test that it should be pass
+
+
+# Project Structure of playwright
+- playwright.config > add configuration for playwright
+- package.json -> this file contains dependencies for the project
+- test folder -> contains a test that are to be executed
+- fixtures directory -> contains the files that are used in automated tests like test data. config files
+- page object -> contains the web elements locators that are used to trigger actions for certain event
+- playwright-report -> folder contains the test report that are generated after the tesets are completely executed
+- main.yml -> this file is the config file used to run the test in CI
+
+# test command
+npx playwright test tests/login/login
+npx playwright show-report
+npx playwright test --headed
+npx playwright test --headed --project "chromium"
+
+//normally sab test parallely run vairathyo ; yo lekyo ki euta sakesi balla arko kholxa
+npx playwright test "tests/newLogin.spec.js" --headed --workers=1
+
+2 modes : 
+headless -> tests are not shown
+headed -> all tests are seen ; browsers are opened 
+ 
+`here there are only 2 tests, but showing 6 tests bcoz  test run on 3 browsers`
+
+
+# Locating web element > XPath
+
+guru99 -> how to use xpath selenium
+
+if the elements are not found by the general locators like id, class, name, etc. then XPath is used to find an element on the web page.
+
+1. Absolute xpath
+- starts from top root node like doctype or html
+- it begins with forward slash
+
+example : /html/body/div[2]/div[1]/div/h4[1]/b/html[1]/body[1]/div[2]/div[1]/div[1]/h4[1]/b[1]
+
+### cons : if there are any changes made in the path of the element then that XPath gets failed.
+
+2. Relative xpath
+- Path starts from the middle of the html dom structure
+- it starts with double forward slash //
+- it can search the element anywhere at the webpage
+
+************************************************************************************
+//*[@id...]
+here * allows checking the whole dom (whole webpage)
+if we know the exact tag, we can start with so that the search scope is decreased.
+*************************************************************************************
+
+a. basic xpath
+select nodes or list of nodes on the basis of attributes like ID , Name, Classname, etc
+
+example : Xpath=//input[@name='uid']
+
+
+
+difference between following and following sibling:
+
+following sibling : afno div vitra ko matra check
+following : afno div vanda baira ko 
+
+
+# POM (Page Object Model)
+- Location ra action separate so that our test case becomes independent 
+
+page object :
+(object files) => define locator and actions
+.po.js
+
+test files:
+.spec.js
+
+
+
+# separate file for data like invalid username valid usernames
+new folder : fixtures
+then create json files
+
+for login => loginFixture.json
+
+
+
+
+overall process:
+create three files : test, po , fixture
+
+1. in po file:
+	create constructors for all the locators
+	then create async functions for  actions
+2. in test file:
+ 	create tests
+
+
+
+# Playwright apis
+Request.post
+Request.get
+Request.patch
+Request.delete
+
+Response.status
+Response.json
+responseBody.{Key}
+
+
