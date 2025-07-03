@@ -1,0 +1,51 @@
+name: Playwright Tests
+on:
+# kunai pani branch main ma push vayo vane yo executge hunxa
+  push:
+    branches: [main]
+# main ko against pull request banayo vane
+  pull_request:
+    branches: [main]
+# cron expression
+# 30:mins 1:hrs **:month and year 1-5 days -> mon to fri
+#1:30 is utc time . in nepal:approx 9 am
+#this will run every month every year sare ek baje run hunxa
+  schedule:
+    -cron: '30 1 ** 1-5'
+
+
+  workflow_dispatch:
+
+jobs:
+  test:
+  #dependency install vairaxa, test crash vayo... vane
+  #60 min samma ni test complete vayena vane tyo cancel handinxa
+    timeout-minutes: 60
+  #ubuntu fast..hamro windows ma
+    runs-on: ubuntu-latest
+
+ 
+    steps:
+    #checkout from branch
+    -uses: actions/checkout@v4
+    # node installation
+    -uses: actions/setup-node@v4
+    #hamle automation garna start garda install gareko sab dependencies intstall
+    -name: Install dependencies
+    #package.json ma vayeko sab auto install garxa , same as npm i in localhost
+     run: npm ci
+    -name: Install Playwright Browsers
+     run: npx playwright install --with-deps
+    -name: Run playwright tests
+     run: npx playwright test
+    - uses: actions/upload-artifact@v4
+     if: always()
+     with:
+      name: playwright-report
+      path: playwright-report/
+      retention-days: 30
+
+#if halena vane test report haru fail hune bela matra auxa; so use it to generate report even if its cancelled, passed, failed
+# it is stored as artifacts
+
+#retetion days :  report haru kati din samma rahane
